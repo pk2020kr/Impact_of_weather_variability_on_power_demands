@@ -178,3 +178,6 @@ daily_avg_df = pd.DataFrame(daily_averages)
 # Save the DataFrame to CSV
 daily_avg_df.to_csv('daily_avg_tmax_up_2017_to_2023.csv', index=False)
 print("Daily average tmax in Uttar Pradesh (2017 to 2023) saved to daily_avg_tmax_up_2017_to_2023.csv")
+
+
+# Different state data cleaning
