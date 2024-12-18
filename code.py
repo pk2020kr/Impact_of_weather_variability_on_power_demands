@@ -113,3 +113,10 @@ plt.grid(True)
 # Show the plot
 plt.show()
 print(f"Equation of the best-fit line: {line_equation}")
+
+
+# I understand downloading the tmax, tmin & rain fille may be difficult, so you can also go through the code below
+start_yr = 1951
+end_yr = 2023
+variable = 'tmax' # other options are ('tmin'/ 'tmax'/'rain')
+data_max = imd.get_data(variable, start_yr, end_yr, fn_format='yearwise')
