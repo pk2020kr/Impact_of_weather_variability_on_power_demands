@@ -120,3 +120,8 @@ start_yr = 1951
 end_yr = 2023
 variable = 'tmax' # other options are ('tmin'/ 'tmax'/'rain')
 data_max = imd.get_data(variable, start_yr, end_yr, fn_format='yearwise')
+
+
+# To run the below code of rainfall, location-wise.
+# first run below to download rain data from IMD (1.9 GB) in .GRD 
+data = imd.get_data('rain'    ,1951,     2023,  'yearwise')
