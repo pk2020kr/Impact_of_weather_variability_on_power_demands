@@ -125,3 +125,39 @@ data_max = imd.get_data(variable, start_yr, end_yr, fn_format='yearwise')
 # To run the below code of rainfall, location-wise.
 # first run below to download rain data from IMD (1.9 GB) in .GRD 
 data = imd.get_data('rain'    ,1951,     2023,  'yearwise')
+
+
+# To run the below function you need a file rain to read and co_test to store the data
+# Function to process rainfall data of co-ordinate of India and plot the graph of sum_rain of assine time_gap
+def plot_rainfall(lat, lon, year_gap, file_dir='co_test'): # taken data from imdlib data (1951 to 2023) only that much is available
+    data = imd.open_data('rain'    ,1951,     2023,  'yearwise')
+    data.to_csv('coordinate.csv', lat, lon, file_dir)  # This downloads the file
+    # Construct the filename based on latitude and longitude
+    file_name = f'coordinate_{lat:.2f}_{lon:.2f}.csv'    
+    # Read the rainfall data from the file
+    l = pd.read_csv(f'{file_dir}/{file_name}')    
+    # Convert the 'DateTime' column to a DatetimeIndex
+    l['DateTime'] = pd.to_datetime(l['DateTime'])    
+    # Use the lat/lon combination for the correct column name in the CSV
+    col_name = f'{lat} {lon}'    
+    # Create a DataFrame with DateTime as index and rainfall as 'rain' column
+    l = pd.DataFrame(list(l[col_name]), index=l['DateTime'], columns=['rain'])    
+    # Resample data by the specified year gap
+    resample_rule = f'{year_gap}YE'  # 'YE' sum year-end resampling
+    max_year = l.resample(resample_rule).sum()    
+    # Plotting the data
+    plt.figure(figsize=(24, 8))
+    sns.barplot(x=max_year.index, y=max_year['rain'])
+    plt.title(f'sum of rainfall Every {year_gap} Years for Location ({lat}, {lon})')
+    plt.xlabel('Year')
+    plt.ylabel('rainfall (mm)')
+    plt.xticks(rotation=45)
+    plt.show()
+    print(max_year)
+       
+
+lat = 26.60
+lon = 80.84
+year_gap = 1
+# Call the function to plot the rainfall graph
+plot_rainfall(lat, lon, year_gap)
