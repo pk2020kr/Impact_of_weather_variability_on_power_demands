@@ -125,3 +125,5 @@ data_max = imd.get_data(variable, start_yr, end_yr, fn_format='yearwise')
 # To run the below code of rainfall, location-wise.
 # first run below to download rain data from IMD (1.9 GB) in .GRD 
 data = imd.get_data('rain'    ,1951,     2023,  'yearwise')
+
+# Go for different state now 
