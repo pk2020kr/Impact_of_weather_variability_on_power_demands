@@ -178,3 +178,32 @@ daily_avg_df = pd.DataFrame(daily_averages)
 # Save the DataFrame to CSV
 daily_avg_df.to_csv('daily_avg_tmax_up_2017_to_2023.csv', index=False)
 print("Daily average tmax in Uttar Pradesh (2017 to 2023) saved to daily_avg_tmax_up_2017_to_2023.csv")
+
+
+# Below code show Scatter Plot of Average rainfall over Time with Best-Fit Line of up from 1951 to 2023 you can see how it changing
+tmax = pd.read_csv('daily_avg_rainfall_up_1951_to_2023.csv', parse_dates=['date'], index_col='date')
+tmax = tmax['1951-01-01':'2023-12-31']
+avg_year = tmax.resample('ME').sum()
+avg_year = avg_year['1951-01-01':'2023-12-31']
+# Calculate the best-fit line
+x = np.arange(len(avg_year))
+y = avg_year['average_rain'].values
+coefficients = np.polyfit(x, y, 1)  # Fit a linear polynomial (degree 1)
+slope = coefficients[0]
+intercept = coefficients[1]
+# Generate the line equation
+line_equation = f'y = {slope:.4f}x + {intercept:.2f}'
+# Plot the data and best-fit line
+plt.figure(figsize=(10, 6))
+plt.scatter(avg_year.index, avg_year['average_rain'], label='Data Points')
+# Plot the best-fit line
+plt.plot(avg_year.index, slope * x + intercept, color='red', label=line_equation)
+plt.xlabel('Date')
+plt.ylabel('rain sum(mm)')
+plt.title('Scatter Plot of Average rainfall over Time with Best-Fit Line')
+plt.xticks(rotation=45)
+plt.legend()
+plt.tight_layout()
+plt.show()
+print(f"Equation of the best-fit line:\n{line_equation}")
+print(avg_year)
