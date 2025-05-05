@@ -1,23 +1,87 @@
-# Impact_of_weather_variability_on_power_demands
-I will use power usage data for Indian states and analyse the impact of weather variability (temperature and rainfall) on electricity consumption in these states. In particular, I will examine the impact of very hot and rainy days on power usage.
+# Impact of Weather Variability on Power Demands
 
+This project analyzes the relationship between weather conditions (temperature and rainfall) and electricity consumption in Indian states, with a particular focus on Uttar Pradesh. The analysis explores how extreme weather events like very hot days and heavy rainfall affect power usage patterns.
 
-Data Sources
+## Project Overview
 
-Electricity Data
+Climate change is increasingly affecting weather patterns across the globe, leading to more frequent extreme weather events. This project aims to quantify the relationship between weather variability and electricity consumption, providing insights that could be valuable for power grid management, energy policy planning, and climate adaptation strategies.
 
-Electricity Consumption and area of states are taken by Kaggle https://www.kaggle.com/datasets/twinkle0705/state-wise-power-consumption-in-india
+## Data Sources
 
-Electricity Consumption taking per-day data state-wise from 2017-04-01 to 2023-12-31 2466 rows × 31 columns Link
+### Weather Data
+- **India Meteorological Department (IMD)** gridded rainfall and temperature data (1951-2023)
+  - Daily maximum temperature (tmax)
+  - Daily minimum temperature (tmin)
+  - Daily rainfall
 
-Electricity Consumption taking hourly data state-wise from 1 Jan 2017 to 30 April 2024 From NITI Aayog https://iced.niti.gov.in/energy/electricity/distribution/national-level-consumption/load-curve 64248 rows × 33 columns 7 Years and 4 months Link
+### Electricity Data
+- **NITI Aayog** hourly state-wise electricity consumption data (2017-2023)
+  - Source: https://iced.niti.gov.in/energy/electricity/distribution/national-level-consumption/load-curve
 
-Population State population data I’m taking from the Census of India 2011 https://censusindia.gov.in/census.website/data/data-visualizations/PopulationSearch_PCA_Indicators AP (84580777) combined population was given in the Census of India 2011 Telangana 35,003,674 https://en.wikipedia.org/wiki/Demographics_of_Telangana Andhra Pradesh 49,577,103 https://en.wikipedia.org/wiki/Andhra_Pradesh
+### Geographical Data
+- State and country boundary shapefiles for India
+  - Source: https://github.com/AnujTiwari/India-State-and-Country-Shapefile-Updated-Jan-2020
 
-National Centers for Environmental Information https://www.ncei.noaa.gov/ https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc%3AC00861 https://www.ncei.noaa.gov/maps/daily/ only per day(max_min_ave) data is available All stations haven’t data of all time some are newly started and some are closed
+## Methodology
 
-NASA Prediction Of Worldwide Energy Resources (POWER) | Data Access Viewer (DAV) https://power.larc.nasa.gov/data-access-viewer/ hourly data of a coordinate is available
+1. **Data Preprocessing**: 
+   - Extraction of daily average temperature and rainfall data for Uttar Pradesh
+   - Aggregation of hourly electricity consumption to daily averages
+   - Detrending using 15-day rolling averages to remove seasonal patterns
 
-India Meteorological Department gridded rainfall and temperature (minimum and maximum) data https://imdlib.readthedocs.io/en/latest/Usage.html#reading-imd-datasets capable of downloading gridded rainfall and temperature (minimum and maximum) data. Data available only per day rain / tmax / tmin 1951-01-01 to 2023-12-31
+2. **Analysis Approaches**:
+   - Correlation analysis between weather variables and electricity demand
+   - Linear regression to quantify relationships
+   - Visualization of patterns and relationships
 
-Shapefile for Indian states and UT https://github.com/AnujTiwari/India-State-and-Country-Shapefile-Updated-Jan-2020
+## Key Findings
+
+The analysis reveals significant relationships between:
+- Maximum temperature and electricity demand (positive correlation)
+- Rainfall events and electricity consumption patterns
+- Detrended weather and power demand show clear relationships, suggesting that weather variability directly impacts energy consumption beyond seasonal patterns
+
+## Repository Structure
+
+- `Impact of weather variability on power demand.ipynb`: Main Jupyter notebook containing the complete analysis
+- `code.py`: Python script with key analysis functions
+- `Data_source.md`: Detailed information about data sources
+- `daily_avg_tmax_up_2017_to_2023.csv`: Daily average maximum temperature for Uttar Pradesh
+- `daily_avg_tmin_up_2017_to_2023.csv`: Daily average minimum temperature for Uttar Pradesh
+- `daily_avg_rainfall_up_2017_to_2023.csv`: Daily average rainfall for Uttar Pradesh
+- Shapefiles: Geographical data for mapping and spatial analysis
+
+## Requirements
+
+The analysis requires the following Python libraries:
+- pandas
+- numpy
+- matplotlib
+- seaborn
+- imdlib
+- geopandas
+- xarray
+- rioxarray
+
+## How to Use
+
+1. Clone this repository
+2. Install required dependencies using `pip install -r requirements.txt`
+3. Open the Jupyter notebook to explore the analysis
+4. The Python script (`code.py`) contains reusable functions for similar analyses
+
+## Future Work
+
+Potential extensions of this research include:
+- Expanding the analysis to more states across India
+- Incorporating more weather variables (e.g., humidity, wind speed)
+- Forecasting future power demands based on climate projections
+- Developing machine learning models to predict electricity consumption based on weather forecasts
+
+## Contact
+
+For questions or collaboration opportunities regarding this project, please open an issue in this repository.
+
+## License
+
+This project is available under the MIT License. 
